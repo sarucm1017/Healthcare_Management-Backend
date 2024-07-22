@@ -95,8 +95,34 @@ const otpVerification = asyncHandler(async (req, res) => {
   }
 });
 
-const Login = asyncHandler(async (req, res) => {
-  // Implement login functionality here
+const UserLogin = asyncHandler(async (req, res) => {
+
+  const { email,password } = req.body;
+  if(!email || !password) {
+
+    res.status(400);
+    throw new Error("Email and password are required");
+  } 
+
+  const user = await userModel.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ message: "Invalid email or password" });
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(400).json({ message: "Invalid email or password" });
+  }
+
+  const token = jwt.sign(
+    { id: user._id, role: user.role }, // Include role in token
+    process.env.JWT_SECRET, // Your JWT secret
+    { expiresIn: '1h' } // Token expiration
+  );
+  res.status(200).json({
+    token,
+    role: user.role // Send role back to the client
+  });
+  
 });
 
-module.exports = { userRegister, otpVerification, Login };
+module.exports = { userRegister, otpVerification, UserLogin };

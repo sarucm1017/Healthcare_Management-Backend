@@ -17,14 +17,6 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-// app.use(session({
-//     secret: 'your-secret-key', // Replace with your own secret key
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false } // Set to true if using HTTPS
-//   }));
-
 app.use(session({
     secret: 'your-secret-key', // Replace with your own secret key
     resave: false,
@@ -35,7 +27,7 @@ app.use(session({
     }
 }));
 
-app.use(cors({ origin:'http://localhost:3001', credentials: true }));
+app.use(cors({ origin:'http://localhost:3000', credentials: true }));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -47,6 +39,10 @@ app.use(cookieParser());
 //route setup
 
 app.use("/users",require("./routes/userRoutes"));
+app.use("/patient",require("./routes/patientsFormRoutes"));
+app.use("/doctor",require("./routes/doctorsFormRoutes"));
+
+
 
 app.use(errorHandler);
 

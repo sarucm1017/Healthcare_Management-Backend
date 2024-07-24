@@ -16,13 +16,16 @@ function otpGeneration() {
 // @route POST /api/users/register
 // @access Public
 const userRegister = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   console.log(req.body);
 
-  if (!name || !email || !password) {
+  console.log("Registering user with role:", role);
+  if (!name || !email || !password || !role) {
     res.status(400);
     throw new Error("All fields are required");
   }
+  console.log(req.body);
+  console.log("Registering user with role:", role);
 
   const userAvailable = await userModel.findOne({ email });
   if (userAvailable) {
@@ -37,6 +40,7 @@ const userRegister = asyncHandler(async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role,
       otp,
     });
     sendOTP(user.email, otp);
@@ -124,5 +128,6 @@ const UserLogin = asyncHandler(async (req, res) => {
   });
   
 });
+
 
 module.exports = { userRegister, otpVerification, UserLogin };

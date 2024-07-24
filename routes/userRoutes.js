@@ -5,7 +5,8 @@ const {userRegister, otpVerification, UserLogin} = require("../controller/userCo
 
 router.route("/register").post(userRegister);
 router.route("/otpVerify").post(otpVerification);
-router.route("/userlogin").post(UserLogin)
+router.route("/userlogin").post(UserLogin);
+
 
 
 

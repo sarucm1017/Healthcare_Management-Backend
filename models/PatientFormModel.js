@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 
 const  PatientSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: true },
     address: String,
     emergency_contact: String,
     age: String,
@@ -21,3 +22,8 @@ const  PatientSchema = new mongoose.Schema({
 
 
 module.exports = mongoose.model('PatientForms', PatientSchema)
+
+// specialty: String,
+// experience: String,
+// clinic_address: String,
+// consultation_fee: Number,

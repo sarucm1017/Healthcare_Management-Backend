@@ -15,6 +15,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Please add the password"]
     },
+    role: {
+        type: String,
+        enum: ['doctor', 'patient' ],
+        // default: 'patient',
+    },
     otp: {
         type: String,
         required: false

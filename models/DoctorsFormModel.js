@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const doctorSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: true },
+ 
   specialization: {
     type: String,
     required: true
@@ -45,7 +45,8 @@ const doctorSchema = new mongoose.Schema({
   professionalMembership: {
     type: String,
     required: true
-  }
+  },
+  userEmail: { type: String, required: true } 
 }, {
   timestamps: true
 });

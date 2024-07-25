@@ -99,6 +99,25 @@ const otpVerification = asyncHandler(async (req, res) => {
   }
 });
 
+
+//////////
+
+const getUserByEmail = asyncHandler(async (req, res) => {
+  const { email } = req.params;
+  try {
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+///////////////
+
 const UserLogin = asyncHandler(async (req, res) => {
 
   const { email,password } = req.body;
@@ -130,4 +149,4 @@ const UserLogin = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { userRegister, otpVerification, UserLogin };
+module.exports = { userRegister, otpVerification, UserLogin, getUserByEmail };

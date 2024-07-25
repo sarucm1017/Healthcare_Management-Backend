@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const DoctorsFormModel = require("../models/DoctorsFormModel");
+const userModel = require("../models/userRegisterModel");
 
 const newDoctor = asyncHandler(async (req, res) => {
   const {
@@ -14,6 +15,7 @@ const newDoctor = asyncHandler(async (req, res) => {
     availableDays,
     residencyProgram,
     professionalMembership,
+    userEmail
   } = req.body;
   console.log(req.body);
 
@@ -47,6 +49,7 @@ const newDoctor = asyncHandler(async (req, res) => {
       availableDays,
       residencyProgram,
       professionalMembership,
+      userEmail
     });
 
     res.status(201).json(Doctor);

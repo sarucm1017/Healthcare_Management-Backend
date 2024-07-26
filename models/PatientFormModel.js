@@ -14,7 +14,10 @@ const  PatientSchema = new mongoose.Schema({
     allergies: String,
     chronic_conditions: String,
     health_insurance_provider: String,
-    health_insurance_policy_number: String
+    health_insurance_policy_number: String,
+    userEmail: { type: String, required: true } ,
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
+    userName: { type: String, required: true }
 })
 
 

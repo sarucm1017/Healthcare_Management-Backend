@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const PatientFormModel = require("../models/PatientFormModel");
+const userModel = require("../models/userRegisterModel");
 
 const newPatient = asyncHandler(async (req, res) => {
   const {
@@ -15,16 +16,23 @@ const newPatient = asyncHandler(async (req, res) => {
     chronic_conditions,
     health_insurance_provider,
     health_insurance_policy_number,
+    userEmail
   } = req.body;
 
   console.log(req.body);
 
-  if (!address || !emergency_contact || !age || !city || !state || !country) {
+  if (!address || !emergency_contact || !age || !city || !state || !country || !userEmail) {
     res.status(400);
     throw new Error("All  fields are required");
   }
 
   try {
+
+    const user = await userModel.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
     const Patient = await PatientFormModel.create({
       address,
       emergency_contact,
@@ -38,10 +46,14 @@ const newPatient = asyncHandler(async (req, res) => {
       chronic_conditions,
       health_insurance_provider,
       health_insurance_policy_number,
+      userEmail,
+      userId: user._id ,
+      userName: user.name
     });
     res.status(201).json(Patient);
   } catch (error) {
-    res.status(400).json({ message: err.message });
+    console.error("Error creating patient:", error.message);
+    res.status(400).json({ message: error.message });
   }
 });
 

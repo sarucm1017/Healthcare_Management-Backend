@@ -30,13 +30,20 @@ const newDoctor = asyncHandler(async (req, res) => {
     !consultationHours ||
     !availableDays ||
     !residencyProgram ||
-    !professionalMembership
+    !professionalMembership ||
+    !userEmail
   ) {
     res.status(400);
-    throw new Error("All  fields are required");
+    throw new Error("All fields are required");
   }
 
   try {
+    // Fetch the user to get the userId
+    const user = await userModel.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
     const Doctor = await DoctorsFormModel.create({
       specialization,
       qualification,
@@ -49,13 +56,14 @@ const newDoctor = asyncHandler(async (req, res) => {
       availableDays,
       residencyProgram,
       professionalMembership,
-      userEmail
+      userEmail,
+      userId: user._id ,
+      userName: user.name
     });
 
     res.status(201).json(Doctor);
-  }
-   catch (error) {
-    res.status(400).json({ message: err.message });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 

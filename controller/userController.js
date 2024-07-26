@@ -103,9 +103,9 @@ const otpVerification = asyncHandler(async (req, res) => {
 //////////
 
 const getUserByEmail = asyncHandler(async (req, res) => {
-  const { email } = req.params;
+  const { userEmail } = req.params;
   try {
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({  email: userEmail });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -120,7 +120,7 @@ const getUserByEmail = asyncHandler(async (req, res) => {
 
 const UserLogin = asyncHandler(async (req, res) => {
 
-  const { email,password } = req.body;
+  const { email } = req.body;
   if(!email || !password) {
 
     res.status(400);

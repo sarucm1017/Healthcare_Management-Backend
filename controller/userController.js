@@ -119,33 +119,33 @@ const getUserByEmail = asyncHandler(async (req, res) => {
 ///////////////
 
 const UserLogin = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-  const { email } = req.body;
-  if(!email || !password) {
-
-    res.status(400);
-    throw new Error("Email and password are required");
-  } 
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
 
   const user = await userModel.findOne({ email });
   if (!user) {
     return res.status(400).json({ message: "Invalid email or password" });
   }
+
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     return res.status(400).json({ message: "Invalid email or password" });
   }
 
   const token = jwt.sign(
-    { id: user._id, role: user.role }, // Include role in token
-    process.env.JWT_SECRET, // Your JWT secret
-    { expiresIn: '1h' } // Token expiration
+    { id: user._id, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' } 
   );
+
   res.status(200).json({
     token,
-    role: user.role // Send role back to the client
+    email: user.email,
+    role: user.role
   });
-  
 });
 
 

@@ -48,7 +48,7 @@ const doctorSchema = new mongoose.Schema({
   },
   userEmail: { type: String, required: true } ,
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
-  userName: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true }
+  userName: { type: String, ref: 'User', required: true, unique: true }
 }, {
   timestamps: true
 });

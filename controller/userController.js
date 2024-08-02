@@ -12,7 +12,7 @@ function otpGeneration() {
   return { otp, expirationOfOtp };
 }
 
-// @desc Registration
+// @desc Registration function
 // @route POST /api/users/register
 // @access Public
 const userRegister = asyncHandler(async (req, res) => {

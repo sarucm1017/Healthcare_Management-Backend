@@ -3,15 +3,17 @@ const PatientFormModel = require("../models/PatientFormModel");
 const userModel = require("../models/userRegisterModel");
 
 
-app.get('/api/patients/:userId', async (req, res) => {
-    try {
-      const patient = await Patient.findOne({ userId: req.params.userId });
-      if (!patient) {
-        return res.status(404).json({ message: 'Patient not found' });
-      }
+// @desc    Get patient by user ID
+// @route   GET /api/patients/:userId
+// @access  Public
+const getPatientByUserId = asyncHandler(async (req, res) => {
+    const patient = await PatientFormModel.findOne({ userId: req.params.userId });
+    if (!patient) {
+      res.status(404).json({ message: "Patient not found" });
+    } else {
       res.json(patient);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
     }
   });
+
+  module.exports = {getPatientByUserId,};
   

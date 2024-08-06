@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const PatientFormModel = require("../models/PatientFormModel");
-const userModel = require("../models/userRegisterModel");
+const PatientFormModel = require("../../models/PatientFormModel");
+
 
 
 // @desc    Get patient by user ID

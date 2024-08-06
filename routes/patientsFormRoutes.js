@@ -4,6 +4,7 @@ const {newPatient} = require("../controller/PatientFormController");
 
 
 router.route("/forms").post(newPatient);
+router.route("/forms/userId").get()
 
 
 

@@ -145,7 +145,8 @@ const UserLogin = asyncHandler(async (req, res) => {
     token,
     email: user.email,
     role: user.role,
-    userId: user._id
+    userId: user._id,
+    data:user
   });
 });
 

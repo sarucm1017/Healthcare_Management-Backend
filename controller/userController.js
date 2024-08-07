@@ -144,7 +144,8 @@ const UserLogin = asyncHandler(async (req, res) => {
   res.status(200).json({
     token,
     email: user.email,
-    role: user.role
+    role: user.role,
+    userId: user._id
   });
 });
 

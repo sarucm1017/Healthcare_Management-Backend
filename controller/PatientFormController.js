@@ -57,4 +57,23 @@ const newPatient = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { newPatient };
+////////////////////patientcontroller to get patientdetails by id/////////
+
+const getPatientById = async (req,res) =>  {
+  
+  try {
+    const patientId = req.params.id; // Get the ID from the request parameters
+    const patient = await Patient.findById(patientId);
+
+    if (!patient) {
+        return res.status(404).json({ message: 'Patient not found' });
+    }
+
+    res.status(200).json(patient);
+} catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+}
+
+}
+
+module.exports = { newPatient, getPatientById};

@@ -63,7 +63,8 @@ const getPatientById = async (req,res) =>  {
   
   try {
     const patientId = req.params.id; // Get the ID from the request parameters
-    const patient = await Patient.findById(patientId);
+    const patient = await PatientFormModel.findById(patientId);
+    
 
     if (!patient) {
         return res.status(404).json({ message: 'Patient not found' });

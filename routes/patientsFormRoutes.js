@@ -6,7 +6,7 @@ const {getPatientByUserId} = require ("../controller/Patient/PatientDashboardCon
 
 router.route("/forms").post(newPatient);
 router.route("/forms/:userId").get(getPatientByUserId);
-router.route("/forms/patients/:id").get(getPatientById)
+router.route("/forms/:userId").get(getPatientById)
 
 
 

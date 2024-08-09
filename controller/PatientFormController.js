@@ -77,4 +77,20 @@ const getPatientById = async (req,res) =>  {
 
 }
 
-module.exports = { newPatient, getPatientById};
+const updatePatient = asyncHandler(async (req, res) => {
+  try {
+      const patient = await PatientFormModel.findOneAndUpdate(
+          { userId: req.params.userId }, // Query by userId instead of _id
+          req.body,
+          { new: true }
+      );
+      if (!patient) {
+          return res.status(404).json({ message: 'Patient not found' });
+      }
+      res.status(200).json(patient);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
+module.exports = { newPatient, getPatientById, updatePatient};

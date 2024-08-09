@@ -50,7 +50,7 @@ const newPatient = asyncHandler(async (req, res) => {
       userId: user._id ,
       userName: user.name
     });
-    res.status(201).json(Patient);
+    res.status(201).json({Patient, userId:Patient.userId});
   } catch (error) {
     console.error("Error creating patient:", error.message);
     res.status(400).json({ message: error.message });

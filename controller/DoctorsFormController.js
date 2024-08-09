@@ -61,7 +61,7 @@ const newDoctor = asyncHandler(async (req, res) => {
       userName: user.name
     });
 
-    res.status(201).json(Doctor);
+    res.status(201).json({Doctor, userId :Doctor.userId});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

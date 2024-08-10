@@ -60,7 +60,9 @@ const newDoctor = asyncHandler(async (req, res) => {
       userId: user._id ,
       userName: user.name
     });
-
+  
+    console.log({Doctor, userId :Doctor.userId});
+    
     res.status(201).json({Doctor, userId :Doctor.userId});
   } catch (error) {
     res.status(400).json({ message: error.message });

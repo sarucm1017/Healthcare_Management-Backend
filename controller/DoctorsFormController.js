@@ -71,19 +71,20 @@ const newDoctor = asyncHandler(async (req, res) => {
 
 //////////////get doctor by id ////////////////////
 
-const getDoctorById = async (req,res) => {
-  const {userId} = req.params;
+const getDoctorById = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
 
   try {
-    const doctor = await DoctorsFormModel.fintOne({userId});
+    const doctor = await DoctorsFormModel.findOne({ userId });
 
-    if(!doctor) {
+    if (!doctor) {
       return res.status(404).json({ message: 'Doctor not found' });
     }
-    res.json(doctor);
+
+    res.status(201).json(doctor);
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
-}
+});
 
 module.exports = { newDoctor, getDoctorById};

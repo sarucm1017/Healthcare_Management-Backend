@@ -87,4 +87,23 @@ const getDoctorById = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { newDoctor, getDoctorById};
+//////////////get doctorsdetails by id for proflie//////
+
+const getDoctorDetailsById = asyncHandler(async (req, res) => {
+
+  try {
+    const doctorId = req.params.id; 
+    const doctor = await DoctorsFormModel.findById(doctorId);
+
+    if (!doctor) {
+      return res.status(404).json({ message: 'Doctor not found' });
+    }
+
+    res.status(201).json(doctor);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+
+module.exports = { newDoctor, getDoctorById, getDoctorDetailsById};

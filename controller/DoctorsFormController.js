@@ -128,4 +128,4 @@ const updateDoctor = asyncHandler(async (req,res) => {
 })
 
 
-module.exports = { newDoctor, getDoctorById, getDoctorDetailsById,updateDoctor};
+module.exports = { newDoctor, getDoctorById, getDoctorDetailsById, updateDoctor};

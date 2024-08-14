@@ -109,4 +109,23 @@ const getDoctorDetailsById = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { newDoctor, getDoctorById, getDoctorDetailsById};
+//////////////update profile ////////////////
+
+const updateDoctor = asyncHandler(async (req,res) => {
+  try{
+    const doctor = await DoctorsFormModel.findOneAndUpdate(
+      {userId: req.params.userId},
+      req.body,
+      {new: true}
+    );
+    if(!doctor){
+      return res.status(404).json({ message: 'Doctor not found' });
+  }
+  res.status(200).json(doctor);
+}catch{
+  res.status(500).json({ message: "Server error", error });
+}
+})
+
+
+module.exports = { newDoctor, getDoctorById, getDoctorDetailsById,updateDoctor};

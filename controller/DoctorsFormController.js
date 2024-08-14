@@ -15,6 +15,7 @@ const newDoctor = asyncHandler(async (req, res) => {
     availableDays,
     residencyProgram,
     professionalMembership,
+    location,
     userEmail
   } = req.body;
   console.log(req.body);
@@ -31,6 +32,7 @@ const newDoctor = asyncHandler(async (req, res) => {
     !availableDays ||
     !residencyProgram ||
     !professionalMembership ||
+    !location||
     !userEmail
   ) {
     res.status(400);
@@ -56,6 +58,7 @@ const newDoctor = asyncHandler(async (req, res) => {
       availableDays,
       residencyProgram,
       professionalMembership,
+      location,
       userEmail,
       userId: user._id ,
       userName: user.name

@@ -14,4 +14,6 @@ const reportSchema = new mongoose.Schema({
   symptoms: { type: String, required: true },
   currentMedications: { type: String, required: true },
   prescribedTreatment: { type: String, required: true },
-})
+});
+
+module.exports = mongoose.model('Report', reportSchema);

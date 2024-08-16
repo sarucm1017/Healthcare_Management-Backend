@@ -14,7 +14,11 @@ const reportSchema = new mongoose.Schema({
   symptoms: { type: String, required: true },
   currentMedications: { type: String, required: true },
   prescribedTreatment: { type: String, required: true },
-  doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
+  doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true , index: true},
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  createdAt: { type: Date, default: Date.now },
+  
+
 });
 
 module.exports = mongoose.model('Report', reportSchema);

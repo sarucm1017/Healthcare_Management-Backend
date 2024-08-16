@@ -33,30 +33,11 @@ const createReport =async (req,res) => {
       currentMedications,
       prescribedTreatment,
       doctorId,
+      userId
       
     } = req.body;
-
-
-    // const newReport = new reportModel({
-    //   patientName,
-    //   bloodGroup,
-    //   pulseRate,
-    //   breathingRate,
-    //   bodyTemperature,
-    //   bloodPressure,
-    //   oxygenSaturation,
-    //   height,
-    //   weight,
-    //   diagnosis,
-    //   symptoms,
-    //   currentMedications,
-    //   prescribedTreatment,
-    //   doctorId:doctorId,
-      
-    // });
-
    
-    
+    const trimedDoctorId = doctorId.trim();
 
     const savedReport = await reportModel.create({
       patientName,
@@ -72,9 +53,12 @@ const createReport =async (req,res) => {
       symptoms,
       currentMedications,
       prescribedTreatment,
-      doctorId,
+      doctorId :trimedDoctorId,
+      userId
     });
 
+    console.log(patientName);
+    
     console.log(doctorId);
     res.status(201).json(savedReport);
     console.log(savedReport);

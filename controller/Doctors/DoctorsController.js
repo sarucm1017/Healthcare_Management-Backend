@@ -68,4 +68,19 @@ const createReport =async (req,res) => {
   }
 };
 
-module.exports = {getAllDoctors,createReport}
+//////////////////////fetch patient reports by doctor id///////////
+
+getReportByDoctorId = async (req,res) => {
+  const { doctorId } = req.params;
+  try {
+    const reportsOfPatient = await reportModel.find({ doctorId });
+    if (!reports) {
+      return res.status(404).json({ message: 'No reports found for this doctor.' });
+  }
+  res.status(200).json(reports);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error });
+  }
+}
+
+module.exports = {getAllDoctors, createReport, getReportByDoctorId}

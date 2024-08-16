@@ -9,7 +9,7 @@ router.route("/forms").get(getAllDoctors);
 router.route("/:userId").get(getDoctorById);
 router.route("/:userId").get(getDoctorDetailsById);
 router.route("/:userId").put(updateDoctor);
-router.route('/report').post(createReport)
+router.route("/report").post(createReport)
 
 
 

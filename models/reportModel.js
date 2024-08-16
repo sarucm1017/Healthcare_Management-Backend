@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const reportSchema = new mongoose.Schema({
-    patientName: { type: String, required: true },
+  patientName: { type: String, required: true },
   bloodGroup: { type: String, required: true },
   pulseRate: { type: String, required: true },
   breathingRate: { type: String, required: true },
@@ -14,6 +14,7 @@ const reportSchema = new mongoose.Schema({
   symptoms: { type: String, required: true },
   currentMedications: { type: String, required: true },
   prescribedTreatment: { type: String, required: true },
+  doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
 });
 
 module.exports = mongoose.model('Report', reportSchema);

@@ -2,6 +2,7 @@ const doctorModel = require("../../models/DoctorsFormModel");
 const reportModel = require('../../models/reportModel');
 
 
+
 const getAllDoctors = async (req,res) => {
     try {
         const doctors = await doctorModel.find();
@@ -31,10 +32,33 @@ const createReport =async (req,res) => {
       symptoms,
       currentMedications,
       prescribedTreatment,
+      doctorId,
+      
     } = req.body;
 
 
-    const newReport = new reportModel({
+    // const newReport = new reportModel({
+    //   patientName,
+    //   bloodGroup,
+    //   pulseRate,
+    //   breathingRate,
+    //   bodyTemperature,
+    //   bloodPressure,
+    //   oxygenSaturation,
+    //   height,
+    //   weight,
+    //   diagnosis,
+    //   symptoms,
+    //   currentMedications,
+    //   prescribedTreatment,
+    //   doctorId:doctorId,
+      
+    // });
+
+   
+    
+
+    const savedReport = await reportModel.create({
       patientName,
       bloodGroup,
       pulseRate,
@@ -48,11 +72,13 @@ const createReport =async (req,res) => {
       symptoms,
       currentMedications,
       prescribedTreatment,
+      doctorId,
     });
 
-
-    const savedReport = await newReport.create();
+    console.log(doctorId);
     res.status(201).json(savedReport);
+    console.log(savedReport);
+    
   } catch (error) {
     res.status(500).json({ message: 'Failed to create report', error });
   }

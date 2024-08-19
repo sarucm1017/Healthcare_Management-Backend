@@ -70,7 +70,7 @@ const createReport =async (req,res) => {
 
 //////////////////////fetch patient reports by doctor id///////////
 
-getReportByDoctorId = async (req,res) => {
+const getReportByDoctorId = async (req,res) => {
   const { doctorId } = req.params;
   try {
     const reportsOfPatient = await reportModel.find({ doctorId });
@@ -81,6 +81,32 @@ getReportByDoctorId = async (req,res) => {
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error });
   }
-}
+};
 
-module.exports = {getAllDoctors, createReport, getReportByDoctorId}
+///////////////get report by reportid/////////
+
+const getReportByReportId =  async (req, res) => {
+
+    console.log("Route accessed");
+  res.send("Route is working");
+
+  console.log("Route accessed");  // Check if this logs
+  res.send("Route is working"); 
+
+  const reportId = req.params.reportId;
+    console.log("Report ID:", reportId); 
+  try {
+    const report = await reportModel.findById(reportId);
+    console.log("Report Query Result:", report); 
+    
+    if (!report) {
+      return res.status(404).json({ message: 'Report not found' });
+    }
+    console.log(report);
+    return res.status(200).json(report);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {getAllDoctors, createReport, getReportByDoctorId, getReportByReportId}

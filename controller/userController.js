@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/userRegisterModel");
 const { sendOTP } = require("../config/emailValidation");
 const session = require("express-session");
+const doctorModel = require("../models/DoctorsFormModel");
+const patientModel = require("../models/PatientFormModel");
 
 // OTP generation
 function otpGeneration() {
@@ -141,14 +143,57 @@ const UserLogin = asyncHandler(async (req, res) => {
     { expiresIn: '1h' } 
   );
 
+  let roleSpecificId = null;
+
+  if (user.role === "doctor") {
+      const doctor = await doctorModel.findOne({ userId: user._id });
+      if (doctor) {
+          roleSpecificId = doctor._id;
+      }
+  } else if (user.role === "patient") {
+      const patient = await patientModel.findOne({ userId: user._id });
+      if (patient) {
+          roleSpecificId = patient._id;
+      }
+  }
+
   res.status(200).json({
     token,
     email: user.email,
     role: user.role,
     userId: user._id,
-    data:user
+    data:user,
+    roleSpecificId,
   });
 });
 
 
-module.exports = { userRegister, otpVerification, UserLogin, getUserByEmail };
+////////////////////getpatient or doctor id///////////
+
+
+const getDoctorOrPatientId = asyncHandler(async (req, res) => {
+  const { userId, role } = req.params;
+
+  let id = null;
+
+  if (role === "doctor") {
+      const doctor = await doctorModel.findOne({ userId });
+      if (doctor) {
+          id = doctor._id;
+      }
+  } else if (role === "patient") {
+      const patient = await patientModel.findOne({ userId });
+      if (patient) {
+          id = patient._id;
+      }
+  }
+
+  if (!id) {
+      return res.status(404).json({ message: "User ID not found in the role's collection" });
+  }
+
+  res.json({ id });
+});
+
+
+module.exports = { userRegister, otpVerification, UserLogin, getUserByEmail,  getDoctorOrPatientId };

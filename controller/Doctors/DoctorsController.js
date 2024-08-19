@@ -74,10 +74,10 @@ getReportByDoctorId = async (req,res) => {
   const { doctorId } = req.params;
   try {
     const reportsOfPatient = await reportModel.find({ doctorId });
-    if (!reports) {
+    if (!reportsOfPatient) {
       return res.status(404).json({ message: 'No reports found for this doctor.' });
   }
-  res.status(200).json(reports);
+  res.status(200).json(reportsOfPatient);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error });
   }

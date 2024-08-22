@@ -132,7 +132,7 @@ const updateDoctor = asyncHandler(async (req,res) => {
 const getDoctorByDoctorId = async (req,res) => {
   try{
     const {doctorId} = req.params;
-    const doctor = await DoctorFormModel.findById(doctorId);
+    const doctor = await DoctorsFormModel.findById(doctorId);
 
     if(!doctor){
       return res.status(404).json({ message: 'Doctor not found' });
